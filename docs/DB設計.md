@@ -8,13 +8,16 @@ erDiagram
         int id
         string email
         string password_hash
-        timestamp created_at
+        datetime created_at
+        datetime updated_at
     }
 
     categories {
         int id
         string name
         string slug
+        datetime created_at
+        datetime updated_at
     }
 
     expenses {
@@ -23,10 +26,10 @@ erDiagram
         int category_id
         string member
         int amount
-        date date
+        date spent_date
         string memo
-        timestamp created_at
-        timestamp updated_at
+        datetime created_at
+        datetime updated_at
     }
 
     budgets {
@@ -35,8 +38,8 @@ erDiagram
         string period_type
         string period
         int amount
-        timestamp created_at
-        timestamp updated_at
+        datetime created_at
+        datetime updated_at
     }
 
     users ||--o{ expenses : "記録する"
@@ -53,6 +56,7 @@ erDiagram
 | email | varchar | ログイン用メールアドレス |
 | password_hash | varchar | ハッシュ化済みパスワード |
 | created_at | timestamp | 作成日時 |
+| updated_at | timestamp | 更新日時 |
 
 ### categories
 | カラム | 型 | 説明 |
@@ -60,6 +64,8 @@ erDiagram
 | id | int | PK |
 | name | varchar | 表示名（例：食費） |
 | slug | varchar | 識別子（例：food） |
+| created_at | timestamp | 作成日時 |
+| updated_at | timestamp | 更新日時 |
 
 ### expenses
 | カラム | 型 | 説明 |
