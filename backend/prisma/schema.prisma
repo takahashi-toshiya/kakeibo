@@ -1,0 +1,62 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           Int       @id @default(autoincrement())
+  email        String    @unique
+  passwordHash String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  expenses     Expense[]
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String
+  slug      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  expenses  Expense[]
+  budgets   Budget[]
+}
+
+model Expense {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  categoryId Int
+  member     Member
+  amount     Int
+  spentDate  DateTime
+  memo       String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  user       User     @relation(fields: [userId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
+}
+
+model Budget {
+  id         Int        @id @default(autoincrement())
+  categoryId Int
+  periodType PeriodType
+  period     String
+  amount     Int
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  category   Category   @relation(fields: [categoryId], references: [id])
+}
+
+enum Member {
+  husband
+  wife
+}
+
+enum PeriodType {
+  week
+  month
+}
