@@ -8,6 +8,7 @@ services:
       - /app/node_modules
     environment:
       DATABASE_URL: postgresql://postgres:postgres@db:5432/kakeibo
+      JWT_SECRET: your-secret-key-change-in-production
     depends_on:
       - db
 
